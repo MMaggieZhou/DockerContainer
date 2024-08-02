@@ -1,31 +1,31 @@
-SF Food Trucks
-===
+This app is from https://docker-curriculum.com/#multi-container-environments
+The code of the app in flask-app dir stays the same; while docker-compose.yml file is modified to work with newest version of docker.
 
-> San Francisco's finger-licking street food now at your fingertips.
+Information of the app can be found at https://github.com/prakhar1989/FoodTrucks
 
-![img](shot.png)
-
-This is a fun application built to accompany the [docker curriculum](http://prakhar.me/docker-curriculum) which is a comprehensive tutorial on getting started with Docker targeted especially at beginners. The app is built with [Flask](http://flask.pocoo.org/) on the backend and [Elasticsearch](http://elastic.co/) is the search engine powering the searches. The front-end is built with [React](http://facebook.github.io/react/) and the beautiful maps are courtesy of [Mapbox](https://www.mapbox.com/).
-
-If you find the design of the website a bit ostentatious, blame [Genius](http://genius.com) for giving me the idea of using this color scheme.  Lastly, the data for the food trucks is made available in the public domain by [SF Data](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat).
-
-#### Docker
-
-There are two different ways of getting the app up and running with Docker. To learn more about how these two differ, check out the [docker curriculum](http://prakhar.me/docker-curriculum).
+#### Docker Images
+##### Elastic Search 
+```
+$ docker pull docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+```
+#### Flask App 
+Instructions to build the image with the code in this folder can be found in Dockerfile
+```
+$ docker build -t username/foodtrucks-web .
+```
 
 ##### Docker Network
+To run the two containers individually, run the command in setup-docker.sh
+The flow is as follows: create a bridge network, run elastic search and flask-app containers in this bridge network, so that flask-app can reach elastic search with container name. 
+or
 ```
 $ ./setup-docker.sh
 ```
 
 ##### Docker Compose
+Couple of modifications to docker-compose.yml file: 
+###### make web container wait for es container start successfully (by healthcheck)
+###### remove binding mount local code repo to the working directory, otherwise web container will always pick up local change
 ```
 $ docker-compose up
 ```
-
-The app can also be easily deployed on AWS Elastic Container Service. Once you have [aws ecs cli](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html) installed, you can run the following to deploy it on ECS!
-```
-$ ./setup-aws-ecs.sh
-```
-
-Learn more at [docker-curriculum](http://prakhar.me/docker-curriculum).
