@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: mmaggiezhou/foodtrucks-web 
+          image: mmaggiezhou/web 
+          # imagePullPolicy: IfNotPresent # for local test
           ports:
             - containerPort: 5000
