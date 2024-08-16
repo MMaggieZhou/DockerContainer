@@ -29,3 +29,6 @@ Couple of modifications to docker-compose.yml file:
 ```
 $ docker-compose up
 ```
+##### Kubernetes 
+Enable Kubernetes from Docker Desktop
+Then run the kubeclt commands in k8s/setup_k8s.sh file
