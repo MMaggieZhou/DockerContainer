@@ -19,3 +19,10 @@ spec:
           args: ["bin/elasticsearch", "-Ediscovery.type=single-node"]
           ports:
             - containerPort: 9200
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: es-pv
+      volumes:
+        - name: es-pv
+          persistentVolumeClaim:
+            claimName: es-pvc 
