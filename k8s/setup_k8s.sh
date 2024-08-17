@@ -1,5 +1,7 @@
 #!/bin/bash
 
+kubectl apply -f pvc.yml
+
 kubectl apply -f es_deployment.yml
 
 kubectl apply -f es_service.yml 
